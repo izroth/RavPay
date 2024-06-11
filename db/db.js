@@ -1,5 +1,4 @@
 const Mongoose = require("mongoose");
-require("dotenv").config();
 const url = process.env.DBURL;
 console.log(url,"url");
 const db = Mongoose.connect(url, {

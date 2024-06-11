@@ -8,9 +8,17 @@ const registerSchema = new Schema({
     password: {
         type: String,  
     },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now
+    }
 
 });
 
-const register = mongoose.model("Register", registerSchema);
+const register = mongoose.model("AdminRegister", registerSchema);
 
 module.exports = register;

@@ -1,15 +1,15 @@
-const registerSchema = require("../../schemas/register.schema");
+const registerSchema = require("../../../schemas/admin/register.schema");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const { registerMessages } = require("../../utils/messages");
+const { registerMessages } = require("../../../utils/messages");
 
 const registerBusiness = async (req, res) => {
   const secret = process.env.SECRETKEY;
   try {
     const userName = req.body.userName;
     if (!userName) {
-      return res.status(400).send(registerMessages.userNameRequired);
+      throw new Error(registerMessages.userNameRequired);
     }
     const password = req.body.password;
     if (!password) {
@@ -31,12 +31,13 @@ const registerBusiness = async (req, res) => {
         password: hashedPassword,
       });
       await newUser.save();
-      const token = jwt.sign({ userName }, secret, { expiresIn: "1m" });
+      const userId = newUser._id;
+      const token = jwt.sign({ userId }, secret, { expiresIn: "1m" });
     res.status(201).json({ message: registerMessages.userCreated, token });
     
   } catch (err) {
     console.log(err);
-    return res.status(500).send(err.message || "Internal Server Error");
+    return res.status(500).json({msg: err.message || "Internal Server Error"});
   }
 };
 

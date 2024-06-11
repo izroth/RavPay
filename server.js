@@ -14,10 +14,10 @@ app.use(
   })
 );
  
-const authRoutes = require("./routes/auth");
+const authRoutes = require("./routes/admin/auth");
 app.use(express.json());
 
-app.use("/auth", authRoutes);
+app.use("/admin/auth", authRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
