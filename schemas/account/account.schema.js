@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { accountType } = require("../../utils/enum");
 
 const userSchema = new Schema({
     userName:{
@@ -31,11 +30,6 @@ const userSchema = new Schema({
         type:Number,
         default:0
     },
-    accounType:{
-        type:String,
-        enum: [accountType.BOTH, accountType.DEBIT, accountType.CREDIT],
-        default:accountType.BOTH
-    },
     createdAt:{
         type:Date,
         default:Date.now
@@ -45,7 +39,6 @@ const userSchema = new Schema({
         default:Date.now
     }
     
-
 });
 
 const user = mongoose.model('accounts', userSchema);
