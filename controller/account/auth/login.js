@@ -1,7 +1,8 @@
 const register = require("../../../schemas/account/account.schema");
 const bcrypt = require("bcryptjs");
 const {
-    loginMessages
+    loginMessages,
+    globalMessages
 } = require("../../../utils/messages")
 const {
     createToken
@@ -19,9 +20,12 @@ const login = async (req, res) => {
         if(!password){
             throw new Error(loginMessages.passwordRequired);
         }   
-        const user = await register.findOne({userName});
+        const user = await register.findOne({userName:userName});
         if(!user){
             throw new Error(loginMessages.userNotFound);
+        }
+        if(user.active === false){
+            throw new Error(globalMessages.inActive);
         }
         const isMatch = await bcrypt.compare(password, user.password);
         if(!isMatch){

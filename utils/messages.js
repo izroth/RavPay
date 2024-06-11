@@ -36,11 +36,18 @@ const getUsersMessages = {
     userNotFound: 'User not found',
     usersFound: 'Users found successfully'
 }
-
+const updateMessages = {
+    activeBoolean: 'Active should be boolean',
+    userUpdated: 'User updated successfully',
+    accountIdRequired: 'Account id is required',
+    accountNotFound: 'Account not found',
+    activeRequired: 'Active is required',
+}
 module.exports= {
     loginMessages,
     registerMessages,
     globalMessages,
     createUsersMessages,
-    getUsersMessages
+    getUsersMessages,
+    updateMessages
 }
