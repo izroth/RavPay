@@ -21,7 +21,7 @@ app.use(express.json());
 
 app.use("/admin/auth", adminAuthRoutes);
 app.use("/admin", adminAuthMiddleware, adminIndex);
-app.use("/users/auth", userAuthRoutes);
+app.use("/account/auth", userAuthRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
