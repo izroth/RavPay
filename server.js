@@ -14,12 +14,14 @@ app.use(
   })
 );
  const {adminAuthMiddleware} = require('./utils/middleware');
-const authRoutes = require("./routes/admin/auth");
+const adminAuthRoutes = require("./routes/admin/auth");
 const adminIndex = require("./routes/admin/index");
+const userAuthRoutes = require("./routes/users/auth");
 app.use(express.json());
 
-app.use("/admin/auth", authRoutes);
+app.use("/admin/auth", adminAuthRoutes);
 app.use("/admin", adminAuthMiddleware, adminIndex);
+app.use("/users/auth", userAuthRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
