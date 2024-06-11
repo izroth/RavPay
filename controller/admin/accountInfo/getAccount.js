@@ -1,7 +1,7 @@
-const userSchema = require("../../../schemas/user/user.schema");
+const userSchema = require("../../../schemas/account/account.schema");
 const { getUsersMessages, globalMessages } = require("../../../utils/messages");
 
-const getUsers = async (req,res) => {
+const getAccount = async (req,res) => {
     try{
         const userId = req.userId;
         if(!userId){
@@ -37,7 +37,7 @@ const getUsers = async (req,res) => {
     }
 }
 
-module.exports = {getUsers};
+module.exports = {getAccount};
 
 
 

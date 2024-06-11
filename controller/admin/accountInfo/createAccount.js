@@ -1,4 +1,4 @@
-const userSchema = require("../../../schemas/user/user.schema");
+const userSchema = require("../../../schemas/account/account.schema");
 const bcrypt = require("bcryptjs");
 const { 
     createAccountNumber,
@@ -6,7 +6,7 @@ const {
 } = require("../../../utils/util.helper.service");
 const { createUsersMessages, globalMessages } = require("../../../utils/messages");
 
-const createUsers = async (req, res) => {
+const createAccount = async (req, res) => {
     try{
         const bankId = req.userId;
         if(!bankId){
@@ -49,4 +49,4 @@ const createUsers = async (req, res) => {
 
 }
 
-module.exports = { createUsers };
+module.exports = { createAccount };

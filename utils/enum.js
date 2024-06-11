@@ -1,7 +1,7 @@
 const accountType = {
-    CREDIT : 'credit',
-    DEBIT : 'debit',
-    BOTH : 'both'
+    CREDIT : 'CREDIT',
+    DEBIT : 'DEBIT',
+    BOTH : 'BOTH'
 }
 
 module.exports = {

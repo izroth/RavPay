@@ -2,6 +2,7 @@ const globalMessages = {
     serverError: 'Server error',
     userNotFound: 'User not found',
     unauthorized: 'Unauthorized',
+    inActive: 'Your account is inactive Please contact admin',
 };
 const registerMessages = {
     userNameExist: 'Username already exists',

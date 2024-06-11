@@ -1,4 +1,4 @@
-const userSchema = require("../schemas/user/user.schema");
+const userSchema = require("../schemas/account/account.schema");
 const jwt = require("jsonwebtoken");
 
 const createToken = async (userId) => {

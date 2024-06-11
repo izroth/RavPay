@@ -1,4 +1,4 @@
-const register = require("../../../schemas/user/user.schema");
+const register = require("../../../schemas/account/account.schema");
 const bcrypt = require("bcryptjs");
 const {
     loginMessages
