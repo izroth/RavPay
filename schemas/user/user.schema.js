@@ -10,6 +10,9 @@ const userSchema = new Schema({
         type: String,
        
     },
+    bankId:{
+        type:String,
+    },
     bankAccountNumber:{
         type:Number,
        

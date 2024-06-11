@@ -28,8 +28,7 @@ const createUsersMessages = {
     IFSCRequired: 'IFSC is required',
     bankAccountNumberLength: 'Bank account number should be upto 10 digits',
     IFSCLength: 'IFSC should be upto 8 digits',
-
-
+    
 }
 
 module.exports= {
