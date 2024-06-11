@@ -48,4 +48,5 @@ const createUsers = async (req, res) => {
     }
 
 }
+
 module.exports = { createUsers };

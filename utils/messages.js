@@ -31,9 +31,15 @@ const createUsersMessages = {
     
 }
 
+const getUsersMessages = {
+    userNotFound: 'User not found',
+    usersFound: 'Users found successfully'
+}
+
 module.exports= {
     loginMessages,
     registerMessages,
     globalMessages,
-    createUsersMessages
+    createUsersMessages,
+    getUsersMessages
 }
