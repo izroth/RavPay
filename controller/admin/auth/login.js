@@ -1,9 +1,11 @@
 const register = require("../../../schemas/admin/register.schema");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 const {
     loginMessages
 } = require("../../../utils/messages")
+const {
+    createToken
+} = require("../../../utils/util.helper.service")
 
 
 const login = async (req, res) => {
@@ -27,7 +29,7 @@ const login = async (req, res) => {
         }
         const secret = process.env.SECRETKEY;
         const userId = user._id;
-        const token = jwt.sign({userId}, secret, {expiresIn: "1m"});
+        const token = await createToken(userId);
         res.status(200).json({message: loginMessages.userLoggedIn, token});
         
     }

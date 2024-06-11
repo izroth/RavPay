@@ -5,10 +5,13 @@ const { globalMessages } = require("./messages");
 
 const adminAuthMiddleware = async (req, res, next) => {
     try {
+        if (!req.header("Authorization")) {
+            throw new Error(globalMessages.unauthorized);
+        }
         const token = req.header("Authorization").replace("Bearer ", "");
         const secret = process.env.SECRETKEY;
         const decoded = jwt.verify(token, secret);
-        const user = await adminRegister.findById(decoded.userId);
+        const user = await adminRegisterSchema.findById(decoded.userId);
         if (!user) {
             throw new Error(globalMessages.userNotFound);
         }

@@ -1,7 +1,5 @@
 const registerSchema = require("../../../schemas/admin/register.schema");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-
 const { registerMessages } = require("../../../utils/messages");
 
 const registerBusiness = async (req, res) => {
@@ -32,7 +30,7 @@ const registerBusiness = async (req, res) => {
       });
       await newUser.save();
       const userId = newUser._id;
-      const token = jwt.sign({ userId }, secret, { expiresIn: "1m" });
+      const token = await createToken(userId);
     res.status(201).json({ message: registerMessages.userCreated, token });
     
   } catch (err) {

@@ -1,8 +1,17 @@
 const userSchema = require("../schemas/user/user.schema");
+const jwt = require("jsonwebtoken");
+
+const createToken = async (userId) => {
+    const secret = process.env.SECRETKEY;
+    const token = jwt.sign({ userId }, secret, { expiresIn: "30d" });
+    return token;
+}
+
 
 const generateRandomNumber = (min, max) => {
     return Math.floor(min + Math.random() * (max - min));
 };
+
 
 const generateUniqueValue = async (min, max, field) => {
     let value;
@@ -27,5 +36,6 @@ const createIFSCCODE = async () => {
 
 module.exports = {
     createAccountNumber,
-    createIFSCCODE
+    createIFSCCODE,
+    createToken
 };
