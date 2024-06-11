@@ -13,6 +13,11 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+ 
+const authRoutes = require("./routes/auth");
+app.use(express.json());
+
+app.use("/auth", authRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
