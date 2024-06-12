@@ -13,15 +13,17 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
- const {adminAuthMiddleware} = require('./utils/middleware');
+ const {adminAuthMiddleware, accountAuthMiddleware} = require('./utils/middleware');
 const adminAuthRoutes = require("./routes/admin/auth");
 const adminIndex = require("./routes/admin/index");
 const userAuthRoutes = require("./routes/account/auth");
+const accountIndex = require("./routes/account/index"); 
 app.use(express.json());
 
 app.use("/admin/auth", adminAuthRoutes);
 app.use("/admin", adminAuthMiddleware, adminIndex);
 app.use("/account/auth", userAuthRoutes);
+app.use("/account", accountAuthMiddleware, accountIndex);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

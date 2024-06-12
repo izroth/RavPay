@@ -10,7 +10,7 @@ const sendMoney = async (req, res) => {
       throw new Error(globalMessages.unauthorized);
     }
 
-    const senderAccount = await accountSchema.findOne({ bankAccountNumber: userId });
+    const senderAccount = await accountSchema.findById(userId);
     if (!senderAccount) {
       throw new Error(globalMessages.unauthorized);
     }
@@ -25,7 +25,7 @@ const sendMoney = async (req, res) => {
       throw new Error(sendMoneyMessages.receiverAccountNumberRequired);
     }
 
-    if (userId === bankAccountNumber) {
+    if (senderAccount.bankAccountNumber === bankAccountNumber) {
       throw new Error(sendMoneyMessages.cannotSendMoneyToSameAccount);
     }
 

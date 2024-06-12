@@ -53,4 +53,4 @@ const accountAuthMiddleware = async (req, res, next) => {
     }
 }
 
-module.exports = { adminAuthMiddleware };
+module.exports = { adminAuthMiddleware ,accountAuthMiddleware };
