@@ -78,7 +78,7 @@ const transcationsMessages = {
 }
 
 const debitCreditMessages = {
-    accountTypeInvalid: 'Account type includes only DEBIT, CREDIT, or BOTH',
+    accountTypeInvalid: 'Account type includes only DEBIT and CREDIT',
     activeBoolean: 'Active should be a boolean',
     amountRequired: 'Amount is required',
     amountPositive: 'Amount must be a positive value',
@@ -86,7 +86,8 @@ const debitCreditMessages = {
     accountOnlyCredit: 'Account is only credit type',
     insufficientBalance: 'Insufficient balance',
     creditSuccess: 'Amount credited successfully',
-    debitSuccess: 'Amount debited successfully'
+    debitSuccess: 'Amount debited successfully',
+    
 };
 
 module.exports= {

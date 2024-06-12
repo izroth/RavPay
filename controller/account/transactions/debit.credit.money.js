@@ -1,12 +1,13 @@
-const { globalMessages, debitCreditMessages, transactionType, accountType } = require("../../../utils/messages");
+const { globalMessages, debitCreditMessages,  } = require("../../../utils/messages");
 const accountSchema = require("../../../schemas/account/account.schema");
 const withdrawCreditSchema = require("../../../schemas/account/withdraw.credit.schema");
+const  { transactionType, accountType } = require("../../../utils/enum");
 
 const debitCreditMoney = async (req, res) => {
     try {
         const userId = req.userId;
         if (!userId) {
-            return res.status(401).json({ msg: globalMessages.unauthorized });
+            throw new Error(globalMessages.unauthorized);
         }
 
         const findUser = await accountSchema.findById(userId);
@@ -15,19 +16,19 @@ const debitCreditMoney = async (req, res) => {
         const description = req.body.description;
 
         if (![transactionType.CREDIT, transactionType.DEBIT].includes(action)) {
-            return res.status(400).json({ msg: globalMessages.invalidAction });
+            throw new Error(debitCreditMessages.accountTypeInvalid);
         }
 
         if (!amount) {
-            return res.status(400).json({ msg: debitCreditMessages.amountRequired });
+            throw new Error(debitCreditMessages.amountRequired);
         }
         if (amount <= 0) {
-            return res.status(400).json({ msg: debitCreditMessages.amountPositive });
+            throw new Error(debitCreditMessages.amountPositive);
         }
 
         if (action === transactionType.CREDIT) {
             if (findUser.accountType === accountType.DEBIT) {
-                return res.status(400).json({ msg: debitCreditMessages.accountOnlyDebit });
+                throw new Error(debitCreditMessages.accountOnlyDebit);
             } else {
                 const newCredit = new withdrawCreditSchema({
                     userId,
@@ -42,10 +43,10 @@ const debitCreditMoney = async (req, res) => {
             }
         } else if (action === transactionType.DEBIT) {
             if (findUser.accountType === accountType.CREDIT) {
-                return res.status(400).json({ msg: debitCreditMessages.accountOnlyCredit });
+                throw new Error(debitCreditMessages.accountOnlyCredit);
             } else {
                 if (findUser.balance < amount) {
-                    return res.status(400).json({ msg: debitCreditMessages.insufficientBalance });
+                    throw new Error(debitCreditMessages.insufficientBalance);
                 }
                 const newDebit = new withdrawCreditSchema({
                     userId,
