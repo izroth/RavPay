@@ -37,6 +37,7 @@ const getUsersMessages = {
     usersFound: 'Users found successfully'
 }
 const updateMessages = {
+    accountTypeInvalid: 'Account type inlcude only DEBIT , CREDIT or BOTH',
     activeBoolean: 'Active should be boolean',
     userUpdated: 'User updated successfully',
     accountIdRequired: 'Account id is required',

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+const { accountType } = require('../../utils/enum');
 const userSchema = new Schema({
     userName:{
         type: String,
@@ -25,6 +25,11 @@ const userSchema = new Schema({
         type:Boolean,
         default:true
     
+    },
+    accountType:{
+        type:String,
+        enum: [accountType.CREDIT, accountType.DEBIT, accountType.BOTH],
+        default:accountType.BOTH
     },
     amount:{
         type:Number,

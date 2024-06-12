@@ -1,8 +1,9 @@
-const transctionType = {
+const accountType = {
     CREDIT : 'CREDIT',
     DEBIT : 'DEBIT',
+    BOTH : 'BOTH'
 }
 
 module.exports = {
-    transctionType
+    accountType
 }
