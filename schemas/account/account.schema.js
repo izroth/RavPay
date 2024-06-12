@@ -31,7 +31,7 @@ const userSchema = new Schema({
         enum: [accountType.CREDIT, accountType.DEBIT, accountType.BOTH],
         default:accountType.BOTH
     },
-    amount:{
+    balance:{
         type:Number,
         default:0
     },

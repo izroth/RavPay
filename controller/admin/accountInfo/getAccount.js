@@ -15,6 +15,7 @@ const getAccount = async (req,res) => {
             userName: 1,
             bankAccountNumber: 1,
             IFSC: 1,
+            balance: 1,
             active: 1,
             createdAt: 1
         }).limit(limit).skip(startIndex);

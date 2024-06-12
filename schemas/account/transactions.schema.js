@@ -8,16 +8,19 @@ const transactionSchema = new Schema({
     receiverId:{
         type: String,
     },
-    receiversDetails:{
+    receiverBankDetails:{
         type: Object,
     },
-    sendersDetails:{
+    senderBankDetails:{
         type: Object,
     },
     amount:{
         type: Number,
     },
     transactionType:{
+        type: String,
+    },
+    description:{
         type: String,
     },
     createdAt:{

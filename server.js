@@ -16,7 +16,7 @@ app.use(
  const {adminAuthMiddleware} = require('./utils/middleware');
 const adminAuthRoutes = require("./routes/admin/auth");
 const adminIndex = require("./routes/admin/index");
-const userAuthRoutes = require("./routes/users/auth");
+const userAuthRoutes = require("./routes/account/auth");
 app.use(express.json());
 
 app.use("/admin/auth", adminAuthRoutes);
