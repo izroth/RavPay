@@ -63,6 +63,10 @@ const sendMoneyMessages = {
     receiverAccountCredit: 'Receiver account is credit type',
 
 }
+
+const checkBalanceMessages = {
+    balanceFetch: 'Balance fetched successfully'
+}
 module.exports= {
     loginMessages,
     registerMessages,
@@ -70,5 +74,6 @@ module.exports= {
     createUsersMessages,
     getUsersMessages,
     updateMessages,
-    sendMoneyMessages
+    sendMoneyMessages,
+    checkBalanceMessages
 }
