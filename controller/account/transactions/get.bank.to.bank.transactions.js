@@ -24,28 +24,28 @@ const getBankToBankTransactions = async (req, res) => {
         transactions = await Promise.all(transactions.map(async transaction => {
             let transactionType = "CREDIT";
             let receiverInfo = {};
-            let senderInfo = {};
+            // let senderInfo = {};
 
             if (transaction.senderId === userId) {
                 transactionType = "DEBIT";
-                const receiverAccountInfo = await accountSchema.findById(transaction.receiverId);
-                const receiverBankInfo = await bankDetailsSchema.findById(receiverAccountInfo.bankId);
-                receiverInfo = {
-                    userName: receiverAccountInfo.userName,
-                    bankAccountNumber: receiverAccountInfo.bankAccountNumber,
-                    IFSC: receiverAccountInfo.IFSC,
-                    bankName: receiverBankInfo.userName,
-                };
-            } else if (transaction.receiverId === userId) {
-                const senderAccountInfo = await accountSchema.findById(transaction.senderId);
-                const senderBankInfo = await bankDetailsSchema.findById(senderAccountInfo.bankId);
-                senderInfo = {
-                    userName: senderAccountInfo.userName,
-                    bankAccountNumber: senderAccountInfo.bankAccountNumber,
-                    IFSC: senderAccountInfo.IFSC,
-                    bankName: senderBankInfo.userName,
-                };
+               
             }
+            const receiverAccountInfo = await accountSchema.findById(transaction.receiverId);
+            const receiverBankInfo = await bankDetailsSchema.findById(receiverAccountInfo.bankId);
+            receiverInfo = {
+                userName: receiverAccountInfo.userName,
+                bankAccountNumber: receiverAccountInfo.bankAccountNumber,
+                IFSC: receiverAccountInfo.IFSC,
+                bankName: receiverBankInfo.userName,
+            };
+            const senderAccountInfo = await accountSchema.findById(transaction.senderId);
+            const senderBankInfo = await bankDetailsSchema.findById(senderAccountInfo.bankId);
+            senderInfo = {
+                userName: senderAccountInfo.userName,
+                bankAccountNumber: senderAccountInfo.bankAccountNumber,
+                IFSC: senderAccountInfo.IFSC,
+                bankName: senderBankInfo.userName,
+            };
 
             return {
                 senderId: transaction.senderId,
