@@ -1,7 +1,7 @@
 const transactionsSchema = require("../../../schemas/account/transactions.schema");
-const { globalMessages, transcationsMessages } = require("../../../utils/messages")
+const { globalMessages, transcationsMessages } = require("../../../utils/messages");
 const accountSchema = require("../../../schemas/account/account.schema");
-const bankDetailsSchema = require("../../../schemas/admin/register.schema")
+const bankDetailsSchema = require("../../../schemas/admin/register.schema");
 
 const getBankToBankTransactions = async (req, res) => {
     try {
@@ -23,27 +23,27 @@ const getBankToBankTransactions = async (req, res) => {
 
         transactions = await Promise.all(transactions.map(async transaction => {
             let transactionType = "CREDIT";
-            let reciverInfo = {};
+            let receiverInfo = {};
             let senderInfo = {};
 
             if (transaction.senderId === userId) {
                 transactionType = "DEBIT";
-                const receiverInfo = await accountSchema.findById(transaction.receiverId);
-                const bankInfo  = await bankDetailsSchema.findById(receiverInfo.bankId);
-                reciverInfo = {
-                    userName: receiverInfo.userName,
-                    bankAccountNumber: receiverInfo.bankAccountNumber,
-                    IFSC: receiverInfo.IFSC,
-                    bankName: bankInfo.userName,
+                const receiverAccountInfo = await accountSchema.findById(transaction.receiverId);
+                const receiverBankInfo = await bankDetailsSchema.findById(receiverAccountInfo.bankId);
+                receiverInfo = {
+                    userName: receiverAccountInfo.userName,
+                    bankAccountNumber: receiverAccountInfo.bankAccountNumber,
+                    IFSC: receiverAccountInfo.IFSC,
+                    bankName: receiverBankInfo.userName,
                 };
             } else if (transaction.receiverId === userId) {
-                const senderInfo = await accountSchema.findById(transaction.senderId);
-                const bankInfo  = await bankDetailsSchema.findById(senderInfo.bankId);
+                const senderAccountInfo = await accountSchema.findById(transaction.senderId);
+                const senderBankInfo = await bankDetailsSchema.findById(senderAccountInfo.bankId);
                 senderInfo = {
-                    userName: senderInfo.userName,
-                    bankAccountNumber: senderInfo.bankAccountNumber,
-                    IFSC: senderInfo.IFSC,
-                    bankName: bankInfo.userName,
+                    userName: senderAccountInfo.userName,
+                    bankAccountNumber: senderAccountInfo.bankAccountNumber,
+                    IFSC: senderAccountInfo.IFSC,
+                    bankName: senderBankInfo.userName,
                 };
             }
 
@@ -54,7 +54,7 @@ const getBankToBankTransactions = async (req, res) => {
                 description: transaction.description,
                 transactionType: transactionType,
                 createdAt: transaction.createdAt,
-                reciverInfo,
+                receiverInfo,
                 senderInfo
             };
         }));
@@ -72,7 +72,7 @@ const getBankToBankTransactions = async (req, res) => {
             total: total
         };
 
-        res.status(200).json({ transactions, pageData, msg: transcationsMessages.transcationsFound });
+        res.status(200).json({ transactions, pageData, msg: transcationsMessages.transactionsFound });
     } catch (err) {
         console.log(err);
         return res.status(500).json({ msg: err.message || "Internal Server Error" });
