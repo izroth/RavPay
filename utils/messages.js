@@ -67,6 +67,15 @@ const sendMoneyMessages = {
 const checkBalanceMessages = {
     balanceFetch: 'Balance fetched successfully'
 }
+
+
+const transcationsMessages = {
+    transcationsFound: 'Transcations found successfully',
+    transcationNotFound: 'Transcation not found',
+    transcationIdRequired: 'Transcation id is required',
+    transcationDeleted: 'Transcation deleted successfully',
+    transcationUpdated: 'Transcation updated successfully',
+}
 module.exports= {
     loginMessages,
     registerMessages,
@@ -75,5 +84,6 @@ module.exports= {
     getUsersMessages,
     updateMessages,
     sendMoneyMessages,
-    checkBalanceMessages
+    checkBalanceMessages,
+    transcationsMessages
 }
