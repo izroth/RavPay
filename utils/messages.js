@@ -76,6 +76,19 @@ const transcationsMessages = {
     transcationDeleted: 'Transcation deleted successfully',
     transcationUpdated: 'Transcation updated successfully',
 }
+
+const debitCreditMessages = {
+    accountTypeInvalid: 'Account type includes only DEBIT, CREDIT, or BOTH',
+    activeBoolean: 'Active should be a boolean',
+    amountRequired: 'Amount is required',
+    amountPositive: 'Amount must be a positive value',
+    accountOnlyDebit: 'Account is only debit type',
+    accountOnlyCredit: 'Account is only credit type',
+    insufficientBalance: 'Insufficient balance',
+    creditSuccess: 'Amount credited successfully',
+    debitSuccess: 'Amount debited successfully'
+};
+
 module.exports= {
     loginMessages,
     registerMessages,
@@ -85,5 +98,6 @@ module.exports= {
     updateMessages,
     sendMoneyMessages,
     checkBalanceMessages,
-    transcationsMessages
+    transcationsMessages,
+    debitCreditMessages
 }
