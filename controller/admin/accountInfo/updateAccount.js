@@ -19,7 +19,7 @@ const updateAccount = async (req, res) => {
       throw new Error(updateMessages.accountNotFound);
     }
 
-    const { active, accountType: newAccountType } = req.body;
+    const { active, accountType: newAccountType, amount } = req.body;
 
     const updateData = {};
 
@@ -35,6 +35,12 @@ const updateAccount = async (req, res) => {
         throw new Error(updateMessages.accountTypeInvalid);
       }
       updateData.accountType = newAccountType;
+    }
+    if (amount !== undefined) {
+      if (typeof amount !== "number") {
+        throw new Error(updateMessages.amountNumber);
+      }
+      updateData.balance = account.balance + amount;
     }
 
     if (Object.keys(updateData).length === 0) {
