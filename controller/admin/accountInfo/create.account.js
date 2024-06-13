@@ -2,7 +2,6 @@ const userSchema = require("../../../schemas/account/account.schema");
 const bcrypt = require("bcryptjs");
 const { 
     createAccountNumber,
-    createIFSCCODE
 } = require("../../../utils/util.helper.service");
 const { createUsersMessages, globalMessages } = require("../../../utils/messages");
 
@@ -25,7 +24,6 @@ const createAccount = async (req, res) => {
             throw new Error(createUsersMessages.passwordNotMatch);
         }
         const bankAccountNumber = await createAccountNumber();
-        // const IFSC = await createIFSCCODE();
        
         const user = await userSchema
             .findOne({userName, bankId});
