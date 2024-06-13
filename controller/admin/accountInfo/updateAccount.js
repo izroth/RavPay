@@ -19,7 +19,7 @@ const updateAccount = async (req, res) => {
       throw new Error(updateMessages.accountNotFound);
     }
 
-    const { active, accountType: newAccountType, amount } = req.body;
+    const { active, accountType: newAccountType, amount, dailyWithdrawalLimit } = req.body;
 
     const updateData = {};
 
@@ -28,6 +28,12 @@ const updateAccount = async (req, res) => {
         throw new Error(updateMessages.activeBoolean);
       }
       updateData.active = active;
+    }
+    if (dailyWithdrawalLimit !== undefined) {
+      if (typeof dailyWithdrawalLimit !== "number") {
+        throw new Error(updateMessages.dailyWithdrawalLimitNumber);
+      }
+      updateData.dailyWithdrawalLimit = dailyWithdrawalLimit;
     }
 
     if (newAccountType !== undefined) {

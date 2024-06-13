@@ -24,7 +24,7 @@ const getBankToBankTransactions = async (req, res) => {
         transactions = await Promise.all(transactions.map(async transaction => {
             let transactionType = "CREDIT";
             let receiverInfo = {};
-            // let senderInfo = {};
+            let senderInfo = {};
 
             if (transaction.senderId === userId) {
                 transactionType = "DEBIT";

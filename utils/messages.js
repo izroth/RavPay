@@ -37,12 +37,15 @@ const getUsersMessages = {
     usersFound: 'Users found successfully'
 }
 const updateMessages = {
+    dailyWithdrawalLimitNumber: 'Daily withdrawal limit should be a number',
+    noUpdatesProvided: 'No updates provided',
     accountTypeInvalid: 'Account type inlcude only DEBIT , CREDIT or BOTH',
     activeBoolean: 'Active should be boolean',
     userUpdated: 'User updated successfully',
     accountIdRequired: 'Account id is required',
     accountNotFound: 'Account not found',
     activeRequired: 'Active is required',
+    accountUpdated: 'Account updated successfully',
 }
 
 const sendMoneyMessages = {
