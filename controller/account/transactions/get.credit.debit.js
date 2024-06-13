@@ -21,7 +21,7 @@ const getCreditDebit = async (req, res) => {
                 description: transaction.description,
                 transactionType: transaction.transactionType,
                 createdAt: transaction.createdAt,
-                balance: accountInfo.balance
+                // balance: accountInfo.balance
             };
         }));
 
