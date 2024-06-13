@@ -1,10 +1,9 @@
 const registerSchema = require("../../../schemas/admin/register.schema");
 const bcrypt = require("bcryptjs");
 const { registerMessages } = require("../../../utils/messages");
-const { createToken } = require("../../../utils/util.helper.service");
+const { createToken, createIFSCCODE } = require("../../../utils/util.helper.service");
 
 const registerBusiness = async (req, res) => {
-  const secret = process.env.SECRETKEY;
   try {
     const userName = req.body.userName;
     if (!userName) {
@@ -24,10 +23,12 @@ const registerBusiness = async (req, res) => {
     throw new Error(registerMessages.userNameExist);
     }
 
+    const IFSC = await createIFSCCODE();
       const hashedPassword = await bcrypt.hash(password, 10);
       const newUser = new registerSchema({
         userName,
         password: hashedPassword,
+        IFSC
       });
       await newUser.save();
       const userId = newUser._id;

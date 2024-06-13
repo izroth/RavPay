@@ -8,6 +8,9 @@ const registerSchema = new Schema({
     password: {
         type: String,  
     },
+    IFSC: {
+        type: String,
+    },
     createdAt: {
         type: Date,
         default: Date.now

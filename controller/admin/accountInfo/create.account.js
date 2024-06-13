@@ -25,18 +25,20 @@ const createAccount = async (req, res) => {
             throw new Error(createUsersMessages.passwordNotMatch);
         }
         const bankAccountNumber = await createAccountNumber();
-        const IFSC = await createIFSCCODE();
+        // const IFSC = await createIFSCCODE();
+       
         const user = await userSchema
             .findOne({userName, bankId});
         if(user){
             throw new Error(createUsersMessages.userNameExist);
         }
+        const findBank = await userSchema.findOne({bankId});
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new userSchema({
             userName,
             password: hashedPassword,
             bankAccountNumber,
-            IFSC,
+            IFSC : findBank.IFSC,
             bankId
         });
         await newUser.save();
