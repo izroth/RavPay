@@ -12,11 +12,13 @@ const registerMessages = {
     passwordRequired: 'Password is required',
 }
 const loginMessages = {
+    bankNotFound: 'Bank not found',
     userNameRequired: 'Username is required',
     passwordRequired: 'Password is required',
     userNotFound: 'User not found',
     passwordNotMatch: 'Password does not match',
     userLoggedIn: 'User logged in successfully',
+    bankNameRequired: 'Bank name is required',
 }
 
 const createUsersMessages = {

@@ -27,7 +27,7 @@ const createAccount = async (req, res) => {
         const bankAccountNumber = await createAccountNumber();
         const IFSC = await createIFSCCODE();
         const user = await userSchema
-            .findOne({userName});
+            .findOne({userName, bankId});
         if(user){
             throw new Error(createUsersMessages.userNameExist);
         }

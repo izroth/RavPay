@@ -1,4 +1,5 @@
-const register = require("../../../schemas/account/account.schema");
+const accountSchema = require("../../../schemas/account/account.schema");
+const bankDetailsSchema = require("../../../schemas/admin/register.schema");
 const bcrypt = require("bcryptjs");
 const {
     loginMessages,
@@ -19,8 +20,19 @@ const login = async (req, res) => {
         const password = req.body.password;
         if(!password){
             throw new Error(loginMessages.passwordRequired);
-        }   
-        const user = await register.findOne({userName:userName});
+        } 
+        const bankName = req.body.bankName;
+        if(!bankName){
+            throw new Error(loginMessages.bankNameRequired);
+        }  
+        const bank = await bankDetailsSchema.findOne({
+            userName:bankName
+        })
+        if(!bank){
+            throw new Error(loginMessages.bankNotFound);
+        }
+        const bankId = bank._id.toString();
+        const user = await accountSchema.findOne({userName:userName, bankId:bankId});
         if(!user){
             throw new Error(loginMessages.userNotFound);
         }
