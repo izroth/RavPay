@@ -14,17 +14,14 @@ const userSchema = new Schema({
         type:String,
     },
     bankAccountNumber:{
-        type:Number,
-       
+        type:Number,   
     },
     IFSC:{
-        type:Number,
-       
+        type:Number,  
     },
     active:{
         type:Boolean,
         default:true
-    
     },
     accountType:{
         type:String,
@@ -34,6 +31,10 @@ const userSchema = new Schema({
     balance:{
         type:Number,
         default:0
+    },
+    dailyWithdrawalLimit:{
+        type:Number,
+        default:1000
     },
     createdAt:{
         type:Date,
