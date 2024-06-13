@@ -91,8 +91,17 @@ const debitCreditMessages = {
     insufficientBalance: 'Insufficient balance',
     creditSuccess: 'Amount credited successfully',
     debitSuccess: 'Amount debited successfully',
+    dailyLimitExceeded: 'Daily withdrawal limit exceeded',
     
 };
+
+const getCreaditDebitMessages = {
+    creditDebitFound: 'Credit and Debit found successfully',
+    creditDebitNotFound: 'Credit and Debit not found',
+    creditDebitIdRequired: 'Credit and Debit id is required',
+    creditDebitDeleted: 'Credit and Debit deleted successfully',
+    creditDebitUpdated: 'Credit and Debit updated successfully',
+}
 
 module.exports= {
     loginMessages,
@@ -104,5 +113,6 @@ module.exports= {
     sendMoneyMessages,
     checkBalanceMessages,
     transcationsMessages,
-    debitCreditMessages
+    debitCreditMessages,
+    getCreaditDebitMessages
 }

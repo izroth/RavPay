@@ -25,6 +25,9 @@ const debitCreditMoney = async (req, res) => {
         if (amount <= 0) {
             throw new Error(debitCreditMessages.amountPositive);
         }
+        if(findUser.remaingWithdrawalLimit < amount){
+            throw new Error(debitCreditMessages.dailyLimitExceeded);
+        }
 
         if (action === transactionType.CREDIT) {
             if (findUser.accountType === accountType.DEBIT) {
@@ -56,6 +59,7 @@ const debitCreditMoney = async (req, res) => {
                 });
                 await newDebit.save();
                 findUser.balance -= amount;
+                findUser.remaingWithdrawalLimit -= amount;
                 await findUser.save();
                 return res.status(200).json({ msg: debitCreditMessages.debitSuccess });
             }
