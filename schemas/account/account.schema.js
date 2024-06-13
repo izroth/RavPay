@@ -36,6 +36,10 @@ const userSchema = new Schema({
         type:Number,
         default:1000
     },
+    remaingWithdrawalLimit:{
+        type:Number,
+        default:1000
+    },
     createdAt:{
         type:Date,
         default:Date.now
