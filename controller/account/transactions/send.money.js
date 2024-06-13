@@ -24,7 +24,9 @@ const sendMoney = async (req, res) => {
     if (!bankAccountNumber) {
       throw new Error(sendMoneyMessages.receiverAccountNumberRequired);
     }
-
+    if(amount>senderAccount.remaingWithdrawalLimit){
+      throw new Error(sendMoneyMessages.insufficientWithdrawalLimit);
+    }
     if (senderAccount.bankAccountNumber === bankAccountNumber) {
       throw new Error(sendMoneyMessages.cannotSendMoneyToSameAccount);
     }
@@ -92,6 +94,7 @@ const createTransaction = async (senderAccount, receiverAccount, amount, descrip
 
     senderAccount.balance -= amount;
     receiverAccount.balance += amount;
+    senderAccount.remaingWithdrawalLimit -= amount;
 
     await senderAccount.save({ session });
     await receiverAccount.save({ session });

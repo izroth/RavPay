@@ -64,6 +64,7 @@ const sendMoneyMessages = {
     accountIsCredit: 'Account is only credit type',
     receiverAccountDebit: 'Receiver account is debit type',
     receiverAccountCredit: 'Receiver account is credit type',
+    insufficientWithdrawalLimit: 'Insufficient withdrawal limit',
 
 }
 

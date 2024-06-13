@@ -28,9 +28,6 @@ const getAccount = async (req,res) => {
             total
         }
         res.status(200).json({users, pageData,msg: getUsersMessages.usersFound,});
-        
-
-
     }
     catch(err){
         console.log(err);

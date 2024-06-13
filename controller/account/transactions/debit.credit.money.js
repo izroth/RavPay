@@ -1,6 +1,6 @@
 const { globalMessages, debitCreditMessages,  } = require("../../../utils/messages");
 const accountSchema = require("../../../schemas/account/account.schema");
-const withdrawCreditSchema = require("../../../schemas/account/withdraw.credit.schema");
+const withdrawCreditSchema = require("../../../schemas/account/debit.credit.schema");
 const  { transactionType, accountType } = require("../../../utils/enum");
 
 const debitCreditMoney = async (req, res) => {

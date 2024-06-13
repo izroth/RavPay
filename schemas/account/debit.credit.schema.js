@@ -24,5 +24,5 @@ const withdrawCreditSchema = new Schema({
     },
     });
 
-const withdrawCredit = mongoose.model("withdrawCredit", withdrawCreditSchema);
+const withdrawCredit = mongoose.model("DebitCredit", withdrawCreditSchema);
 module.exports = withdrawCredit;
