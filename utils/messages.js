@@ -74,6 +74,7 @@ const checkBalanceMessages = {
 
 
 const transcationsMessages = {
+    invalidFilter: 'Invalid filter',
     transcationsFound: 'Transcations found successfully',
     transcationNotFound: 'Transcation not found',
     transcationIdRequired: 'Transcation id is required',

@@ -9,7 +9,16 @@ const transactionType = {
     WITHDRAWAL : 'WITHDRAWAL',
     DEPOSIT : 'DEPOSIT'
 }
+
+const transactionFilters = {
+    ALL : 'ALL',
+    DEBIT : 'DEBIT',
+    CREDIT : 'CREDIT',
+     WITHDRAWAL : 'WITHDRAWAL',
+    DEPOSIT : 'DEPOSIT'
+}
 module.exports = {
     accountType,
-    transactionType
+    transactionType,
+    transactionFilters
 }

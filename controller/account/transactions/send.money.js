@@ -8,12 +8,12 @@ const sendMoney = async (req, res) => {
   try {
       const userId = req.userId;
       if (!userId) {
-          throw new Error(globalMessages.unauthorized);
+          throw new Error(sendMoneyMessages.unauthorized);
       }
 
       const account = await accountSchema.findById(userId);
       if (!account) {
-          throw new Error(globalMessages.unauthorized);
+          throw new Error(sendMoneyMessages.unauthorized);
       }
 
       const { bankAccountNumber, amount, IFSC, description, transactionType } = req.body;
@@ -22,8 +22,8 @@ const sendMoney = async (req, res) => {
           throw new Error(sendMoneyMessages.transactionTypeRequired);
       }
 
-      if (transactionType === transactionValue.CREDIT || transactionType === transactionValue.DEBIT) {
-          if (account.accountType === accountType.CREDIT) {
+      if (transactionType === transactionValue.DEBIT || transactionType === transactionValue.CREDIT) {
+          if (account.accountType === 'CREDIT') {
               throw new Error(sendMoneyMessages.accountIsCredit);
           }
 
@@ -53,11 +53,11 @@ const sendMoney = async (req, res) => {
           if (!receiverAccount) {
               throw new Error(sendMoneyMessages.accountNotFound);
           }
-          if (receiverAccount.accountType === accountType.DEBIT) {
+          if (receiverAccount.accountType === 'DEBIT') {
               throw new Error(sendMoneyMessages.receiverAccountDebit);
           }
 
-          await createTransaction(account, receiverAccount, amount, description, transactionValue.CREDIT);
+          await createTransaction(account, receiverAccount, amount, description, transactionValue.DEBIT);
 
           res.status(200).json({ msg: sendMoneyMessages.moneySent });
 
@@ -75,7 +75,7 @@ const sendMoney = async (req, res) => {
               throw new Error(sendMoneyMessages.insufficientWithdrawalLimit);
           }
 
-          await createTransaction(account, userId, amount, description, transactionValue.WITHDRAWAL);
+          await createTransaction(account, null, amount, description, transactionValue.WITHDRAWAL);
 
           res.status(200).json({ msg: sendMoneyMessages.moneyWithdrawn });
 
@@ -87,7 +87,7 @@ const sendMoney = async (req, res) => {
               throw new Error(sendMoneyMessages.amountPositive);
           }
 
-          await createTransaction(account, userId, amount, description, transactionValue.DEPOSIT);
+          await createTransaction(account, null, amount, description, transactionValue.DEPOSIT);
 
           res.status(200).json({ msg: sendMoneyMessages.moneyDeposited });
 
@@ -128,7 +128,7 @@ const createTransaction = async (senderAccount, receiverAccount, amount, descrip
 
       await newTransaction.save({ session });
 
-      if (transactionType === transactionValue.CREDIT || transactionType === transactionValue.DEBIT) {
+      if (transactionType === transactionValue.DEBIT) {
           senderAccount.balance -= amount;
           receiverAccount.balance += amount;
           senderAccount.remaingWithdrawalLimit -= amount;
@@ -139,9 +139,6 @@ const createTransaction = async (senderAccount, receiverAccount, amount, descrip
       } else if (transactionType === transactionValue.DEPOSIT) {
           senderAccount.balance += amount;
       }
-      
-
-      
 
       await senderAccount.save({ session });
       await session.commitTransaction();
@@ -156,4 +153,3 @@ const createTransaction = async (senderAccount, receiverAccount, amount, descrip
 module.exports = {
   sendMoney
 };
-

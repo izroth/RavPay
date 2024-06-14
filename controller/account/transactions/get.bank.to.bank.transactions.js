@@ -1,7 +1,9 @@
-const transactionsSchema = require("../../../schemas/account/transactions.schema");
+const transactionSchema = require("../../../schemas/account/transactions.schema");
 const { globalMessages, transcationsMessages } = require("../../../utils/messages");
 const accountSchema = require("../../../schemas/account/account.schema");
 const bankDetailsSchema = require("../../../schemas/admin/register.schema");
+const { transactionType , transactionFilters} = require("../../../utils/enum");
+
 
 const getBankToBankTransactions = async (req, res) => {
     try {
@@ -11,27 +13,45 @@ const getBankToBankTransactions = async (req, res) => {
         }
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 10;
+        const filter = req.query.filter || transactionFilters.ALL;
+        
+        if(!Object.values(transactionFilters).includes(filter)){
+            throw new Error(transcationsMessages.invalidFilter);
+        }
 
-        let transactions = await transactionsSchema.find({
+        let filterCriteria = {
             $or: [
                 { senderId: userId },
                 { receiverId: userId }
             ]
-        }).sort({ createdAt: -1 })
+        };
+
+        if (filter === transactionFilters.DEBIT) {
+            filterCriteria.transactionType = transactionFilters.DEBIT;
+            filterCriteria.senderId = userId;
+        } else if (filter === transactionFilters.CREDIT) {
+            filterCriteria.transactionType = transactionFilters.CREDIT;
+            filterCriteria.receiverId = userId;
+        } else if (filter === transactionFilters.WITHDRAWAL) {
+            filterCriteria.transactionType = transactionFilters.WITHDRAWAL;
+        } else if (filter === transactionFilters.DEPOSIT) {
+            filterCriteria.transactionType = transactionFilters.DEPOSIT;
+        }
+
+        let transactions = await transactionSchema.find(filterCriteria)
+            .sort({ createdAt: -1 })
             .limit(limit)
             .skip((page - 1) * limit);
 
         transactions = await Promise.all(transactions.map(async transaction => {
-            let transactionType = "CREDIT";
+            let transactionType = transaction.transactionType;
             let receiverInfo = {};
             let senderInfo = {};
 
-            if (transaction.senderId === userId && transaction.receiverId !== userId) {
-                transactionType = "DEBIT";
-               
-            }
-            if(transaction.senderId === userId && transaction.receiverId === userId){
-                transactionType = transaction.transactionType;
+            if (transaction.senderId === userId && transaction.transactionType === transactionFilters.DEBIT) {
+                transactionType = transactionFilters.DEBIT;
+            } else if (transaction.receiverId === userId && transaction.transactionType === transactionFilters.CREDIT) {
+                transactionType = transactionFilters.CREDIT;
             }
 
             const receiverAccountInfo = await accountSchema.findById(transaction.receiverId);
@@ -63,20 +83,15 @@ const getBankToBankTransactions = async (req, res) => {
             };
         }));
 
-        const total = await transactionsSchema.find({
-            $or: [
-                { senderId: userId },
-                { receiverId: userId }
-            ]
-        }).countDocuments();
+        const total = await transactionSchema.find(filterCriteria).countDocuments();
 
         const pageData = {
             page,
             limit,
-            total: total
+            total
         };
 
-        res.status(200).json({ transactions, pageData, msg: transcationsMessages.transactionsFound });
+        res.status(200).json({ transactions, pageData, msg: "Transactions found" });
     } catch (err) {
         console.log(err);
         return res.status(500).json({ msg: err.message || "Internal Server Error" });
