@@ -5,7 +5,9 @@ const accountType = {
 }
 const transactionType = {
     DEBIT : 'DEBIT',
-    CREDIT : 'CREDIT'
+    CREDIT : 'CREDIT',
+    WITHDRAWAL : 'WITHDRAWAL',
+    DEPOSIT : 'DEPOSIT'
 }
 module.exports = {
     accountType,

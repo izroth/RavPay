@@ -51,7 +51,7 @@ const accountAuthMiddleware = async (req, res, next) => {
   
       if (diffInDays >= 1) {
         await accountSchema.findByIdAndUpdate(user._id, {
-          remainingWithdrawalLimit: user.dailyWithdrawalLimit,
+          remaingWithdrawalLimit: user.dailyWithdrawalLimit,
           updatedAt: currentTime,
         });
       }

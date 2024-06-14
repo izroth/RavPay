@@ -26,10 +26,14 @@ const getBankToBankTransactions = async (req, res) => {
             let receiverInfo = {};
             let senderInfo = {};
 
-            if (transaction.senderId === userId) {
+            if (transaction.senderId === userId && transaction.receiverId !== userId) {
                 transactionType = "DEBIT";
                
             }
+            if(transaction.senderId === userId && transaction.receiverId === userId){
+                transactionType = transaction.transactionType;
+            }
+
             const receiverAccountInfo = await accountSchema.findById(transaction.receiverId);
             const receiverBankInfo = await bankDetailsSchema.findById(receiverAccountInfo.bankId);
             receiverInfo = {

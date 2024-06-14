@@ -51,24 +51,22 @@ const updateMessages = {
 }
 
 const sendMoneyMessages = {
-    amountRequired:'Amount is required',
-    receiverAccountNumberRequired:'Receiver Account Number is required',
-    receiverIFSCRequired:'Receiver IFSC is required',
-    moneySent:'Money sent successfully',
-    insufficientBalance:'Insufficient balance',
-    accountNotFound:'Account not found',
-    reciverInactive: 'Receiver account is inactive',
-    cannotSendMoneyToSameAccount: 'Cannot send money to same account',
-    amountPositive: 'Amount should greater than 0',
-    accountNumberLength: 'Account number should be upto 10 digits',
-    IFSClength: 'IFSC should be upto 8 digits',
-    accountIsDebit: 'Account is only debit type',
-    accountIsCredit: 'Account is only credit type',
-    receiverAccountDebit: 'Receiver account is debit type',
-    receiverAccountCredit: 'Receiver account is credit type',
-    insufficientWithdrawalLimit: 'Insufficient withdrawal limit',
-
-}
+    transactionTypeRequired: "Transaction type is required",
+    invalidTransactionType: "Invalid transaction type",
+    accountIsCredit: "Sender account is credit type",
+    receiverAccountNumberRequired: "Receiver account number is required",
+    insufficientWithdrawalLimit: "Insufficient withdrawal limit",
+    cannotSendMoneyToSameAccount: "Cannot send money to the same account",
+    amountRequired: "Amount is required",
+    amountPositive: "Amount must be positive",
+    insufficientBalance: "Insufficient balance",
+    IFSCRequired: "IFSC code is required",
+    accountNotFound: "Receiver account not found",
+    receiverAccountDebit: "Receiver account is debit type",
+    moneySent: "Money sent successfully",
+    moneyWithdrawn: "Money withdrawn successfully",
+    moneyDeposited: "Money deposited successfully"
+};
 
 const checkBalanceMessages = {
     balanceFetch: 'Balance fetched successfully'
