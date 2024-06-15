@@ -4,6 +4,7 @@ const {
     createAccountNumber,
 } = require("../../../utils/util.helper.service");
 const { createUsersMessages, globalMessages } = require("../../../utils/messages");
+const bankSchema = require("../../../schemas/admin/register.schema");
 
 const createAccount = async (req, res) => {
     try{
@@ -30,7 +31,9 @@ const createAccount = async (req, res) => {
         if(user){
             throw new Error(createUsersMessages.userNameExist);
         }
-        const findBank = await userSchema.findOne({bankId});
+        const findBank = await bankSchema.findById(bankId);
+        console.log(bankId)
+        console.log(findBank?.IFSC)
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new userSchema({
             userName,
