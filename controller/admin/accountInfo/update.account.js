@@ -19,7 +19,7 @@ const updateAccount = async (req, res) => {
       throw new Error(updateMessages.accountNotFound);
     }
 
-    const { active, accountType: newAccountType, amount, dailyWithdrawalLimit } = req.body;
+    const { active, accountType: newAccountType, amount, incrasedailyWithdrawalLimit } = req.body;
 
     const updateData = {};
 
@@ -29,11 +29,20 @@ const updateAccount = async (req, res) => {
       }
       updateData.active = active;
     }
-    if (dailyWithdrawalLimit !== undefined) {
-      if (typeof dailyWithdrawalLimit !== "number") {
-        throw new Error(updateMessages.dailyWithdrawalLimitNumber);
+
+    if (incrasedailyWithdrawalLimit !== undefined) {
+      if (typeof incrasedailyWithdrawalLimit !== "number" || incrasedailyWithdrawalLimit === 0) {
+        throw new Error(updateMessages.increaseDailyWithdrawalLimitInvalid);
       }
-      updateData.dailyWithdrawalLimit = dailyWithdrawalLimit;
+
+      let newRemainingLimit = account.remaingWithdrawalLimit + incrasedailyWithdrawalLimit;
+
+      if (newRemainingLimit <= 0) {
+        newRemainingLimit = 0;
+      }
+
+      updateData.remaingWithdrawalLimit = newRemainingLimit;
+      updateData.dailyWithdrawalLimit = account.dailyWithdrawalLimit + incrasedailyWithdrawalLimit;
     }
 
     if (newAccountType !== undefined) {
@@ -42,11 +51,17 @@ const updateAccount = async (req, res) => {
       }
       updateData.accountType = newAccountType;
     }
+
     if (amount !== undefined) {
       if (typeof amount !== "number") {
         throw new Error(updateMessages.amountNumber);
       }
-      updateData.balance = account.balance + amount;
+
+      let newBalance = (account.balance || 0) + amount;
+      if (newBalance < 0) {
+        newBalance = 0;
+      }
+      updateData.balance = newBalance;
     }
 
     if (Object.keys(updateData).length === 0) {
@@ -67,3 +82,7 @@ const updateAccount = async (req, res) => {
 };
 
 module.exports = { updateAccount };
+
+
+// module.exports = { updateAccount };
+
