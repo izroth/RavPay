@@ -22,7 +22,7 @@ const sendMoney = async (req, res) => {
           throw new Error(sendMoneyMessages.transactionTypeRequired);
       }
 
-      if (transactionType === transactionValue.DEBIT || transactionType === transactionValue.CREDIT) {
+      if (transactionType === transactionValue.DEBIT) {
           if (account.accountType === 'CREDIT') {
               throw new Error(sendMoneyMessages.accountIsCredit);
           }
