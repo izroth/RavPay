@@ -55,12 +55,12 @@ const getBankToBankTransactions = async (req, res) => {
             }
 
             const receiverAccountInfo = await accountSchema.findById(transaction.receiverId);
-            const receiverBankInfo = await bankDetailsSchema.findById(receiverAccountInfo.bankId);
+            const receiverBankInfo = await bankDetailsSchema.findById(receiverAccountInfo?.bankId);
             receiverInfo = {
                 userName: receiverAccountInfo.userName,
-                bankAccountNumber: receiverAccountInfo.bankAccountNumber,
-                IFSC: receiverAccountInfo.IFSC,
-                bankName: receiverBankInfo.userName,
+                bankAccountNumber: receiverAccountInfo?.bankAccountNumber,
+                IFSC: receiverAccountInfo?.IFSC,
+                bankName: receiverBankInfo?.userName,
             };
             const senderAccountInfo = await accountSchema.findById(transaction.senderId);
             const senderBankInfo = await bankDetailsSchema.findById(senderAccountInfo.bankId);

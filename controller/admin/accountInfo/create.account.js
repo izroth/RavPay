@@ -32,13 +32,12 @@ const createAccount = async (req, res) => {
             throw new Error(createUsersMessages.userNameExist);
         }
         const findBank = await bankSchema.findById(bankId);
-        console.log(bankId)
-        console.log(findBank?.IFSC)
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new userSchema({
             userName,
             password: hashedPassword,
             bankAccountNumber,
+            balance: 1000,
             IFSC : findBank.IFSC,
             bankId
         });

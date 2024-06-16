@@ -13,8 +13,7 @@ const updateAccount = async (req, res) => {
     if (!accountId) {
       throw new Error(updateMessages.accountIdRequired);
     }
-
-    const account = await accountSchema.findById(accountId);
+    const account = await accountSchema.findOne({ _id: accountId, bankId: userId });
     if (!account) {
       throw new Error(updateMessages.accountNotFound);
     }
@@ -43,6 +42,9 @@ const updateAccount = async (req, res) => {
 
       updateData.remaingWithdrawalLimit = newRemainingLimit;
       updateData.dailyWithdrawalLimit = account.dailyWithdrawalLimit + incrasedailyWithdrawalLimit;
+      if(updateData.dailyWithdrawalLimit < 0){
+        updateData.dailyWithdrawalLimit = 0;
+      }
     }
 
     if (newAccountType !== undefined) {
