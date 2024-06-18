@@ -3,14 +3,22 @@ const { getUsersMessages, globalMessages } = require("../../../utils/messages");
 
 const getAccount = async (req,res) => {
     try{
-        const userId = req.userId;
+        const userId = req.userId.toString();
         if(!userId){
             throw new Error(globalMessages.unauthorized);
         }
         const page = parseInt(req.query.page);
         const limit = parseInt(req.query.limit) || 10;
         const startIndex = (page - 1) * limit;
-        let users = await userSchema.find({bankId: userId},{
+        const search = req.query.search;
+        query = {};
+        if(search){
+            query = {userName: {$regex: search, $options: "i"}, bankId: userId};
+        }
+        else{
+            query = {bankId: userId};
+        }
+        let users = await userSchema.find(query,{
             _id: 1,
             userName: 1,
             bankAccountNumber: 1,
