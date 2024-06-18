@@ -30,7 +30,7 @@ const getBankToBankTransactions = async (req, res) => {
             filterCriteria.transactionType = transactionFilters.DEBIT;
             filterCriteria.senderId = userId;
         } else if (filter === transactionFilters.CREDIT) {
-            filterCriteria.transactionType = transactionFilters.CREDIT;
+            filterCriteria.transactionType = transactionFilters.DEBIT;
             filterCriteria.receiverId = userId;
         } else if (filter === transactionFilters.WITHDRAWAL) {
             filterCriteria.transactionType = transactionFilters.WITHDRAWAL;
@@ -50,7 +50,7 @@ const getBankToBankTransactions = async (req, res) => {
 
             if (transaction.senderId === userId && transaction.transactionType === transactionFilters.DEBIT) {
                 transactionType = transactionFilters.DEBIT;
-            } else if (transaction.receiverId === userId && transaction.transactionType === transactionFilters.CREDIT) {
+            } else if (transaction.receiverId === userId && transaction.transactionType === transactionFilters.DEBIT) {
                 transactionType = transactionFilters.CREDIT;
             }
 
