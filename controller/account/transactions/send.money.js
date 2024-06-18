@@ -75,7 +75,7 @@ const sendMoney = async (req, res) => {
               throw new Error(sendMoneyMessages.insufficientWithdrawalLimit);
           }
 
-          await createTransaction(account, null, amount, description, transactionValue.WITHDRAWAL);
+          await createTransaction(account, account, amount, description, transactionValue.WITHDRAWAL);
 
           res.status(200).json({ msg: sendMoneyMessages.moneyWithdrawn });
 
@@ -87,7 +87,7 @@ const sendMoney = async (req, res) => {
               throw new Error(sendMoneyMessages.amountPositive);
           }
 
-          await createTransaction(account, null, amount, description, transactionValue.DEPOSIT);
+          await createTransaction(account, account, amount, description, transactionValue.DEPOSIT);
 
           res.status(200).json({ msg: sendMoneyMessages.moneyDeposited });
 
