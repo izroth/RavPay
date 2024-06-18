@@ -84,6 +84,10 @@ const getBankToBankTransactions = async (req, res) => {
         }));
 
         const total = await transactionSchema.find(filterCriteria).countDocuments();
+        let message = transcationsMessages.transactionsFound;
+        if (transactions.length === 0) {
+            message = transcationsMessages.transactionsNotFound;
+        }
 
         const pageData = {
             page,
@@ -91,7 +95,7 @@ const getBankToBankTransactions = async (req, res) => {
             total
         };
 
-        res.status(200).json({ transactions, pageData, msg: "Transactions found" });
+        res.status(200).json({ transactions, pageData, msg: message});
     } catch (err) {
         console.log(err);
         return res.status(500).json({ msg: err.message || "Internal Server Error" });

@@ -18,7 +18,7 @@ const updateAccount = async (req, res) => {
       throw new Error(updateMessages.accountNotFound);
     }
 
-    const { active, accountType: newAccountType, amount, incrasedailyWithdrawalLimit } = req.body;
+    const { active, accountType: newAccountType, amount, incraseDailyWithdrawalLimit } = req.body;
 
     const updateData = {};
 
@@ -29,19 +29,19 @@ const updateAccount = async (req, res) => {
       updateData.active = active;
     }
 
-    if (incrasedailyWithdrawalLimit !== undefined) {
-      if (typeof incrasedailyWithdrawalLimit !== "number" || incrasedailyWithdrawalLimit === 0) {
+    if (incraseDailyWithdrawalLimit !== undefined) {
+      if (typeof incraseDailyWithdrawalLimit !== "number" || incraseDailyWithdrawalLimit === 0) {
         throw new Error(updateMessages.increaseDailyWithdrawalLimitInvalid);
       }
 
-      let newRemainingLimit = account.remaingWithdrawalLimit + incrasedailyWithdrawalLimit;
+      let newRemainingLimit = account.remaingWithdrawalLimit + incraseDailyWithdrawalLimit;
 
       if (newRemainingLimit <= 0) {
         newRemainingLimit = 0;
       }
 
       updateData.remaingWithdrawalLimit = newRemainingLimit;
-      updateData.dailyWithdrawalLimit = account.dailyWithdrawalLimit + incrasedailyWithdrawalLimit;
+      updateData.dailyWithdrawalLimit = account.dailyWithdrawalLimit + incraseDailyWithdrawalLimit;
       if(updateData.dailyWithdrawalLimit < 0){
         updateData.dailyWithdrawalLimit = 0;
       }

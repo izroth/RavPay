@@ -28,6 +28,11 @@ const getAccount = async (req,res) => {
             createdAt: 1
         }).limit(limit).skip(startIndex);
         
+        let message = getUsersMessages.usersNotFound;
+        if(users.length > 0){
+            message = getUsersMessages.usersFound;
+        }
+        
 
         const total = await userSchema.find({bankId: userId}).countDocuments();
         const pageData = {
@@ -35,7 +40,7 @@ const getAccount = async (req,res) => {
             limit,
             total
         }
-        res.status(200).json({users, pageData,msg: getUsersMessages.usersFound,});
+        res.status(200).json({users, pageData,msg: message,});
     }
     catch(err){
         console.log(err);

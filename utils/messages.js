@@ -35,6 +35,7 @@ const createUsersMessages = {
 }
 
 const getUsersMessages = {
+    usersNotFound: 'Users not found',
     userNotFound: 'User not found',
     usersFound: 'Users found successfully'
 }
@@ -74,6 +75,8 @@ const checkBalanceMessages = {
 
 
 const transcationsMessages = {
+    transactionsFound: 'Transactions found successfully',
+    transactionsNotFound: 'Transactions not found',
     invalidFilter: 'Invalid filter',
     transcationsFound: 'Transcations found successfully',
     transcationNotFound: 'Transcation not found',
